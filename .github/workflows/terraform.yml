@@ -1,32 +1,33 @@
+
 name: 'Terraform'
 
 on:
   push:
-    branches: [ "dev" ]
+    branches: ["dev"]
+
   pull_request:
-  workflow_dispatch: 
 
-  inputs:
-    username:
-      description: "Enter username"
-      required: true
-      type: string
+  workflow_dispatch:
+    inputs:
+      username:
+        description: "Enter username"
+        required: true
+        type: string
 
-    environment:
-      description: "Select environment"
-      required: true
-      type: choice
-      options:
-        - dev
-        - staging
-        - production
+      environment:
+        description: "Select environment"
+        required: true
+        type: choice
+        options:
+          - dev
+          - staging
+          - production
 
-    deploy:
-      description: "Deploy?"
-      required: true
-      type: boolean
+      deploy:
+        description: "Deploy?"
+        required: true
+        type: boolean
 
-      
 permissions:
   contents: read
 
@@ -40,33 +41,32 @@ jobs:
     runs-on: ubuntu-latest
     environment: production
 
-    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
+    # Use Bash shell
     defaults:
       run:
         shell: bash
 
     steps:
-    # Checkout the repository to the GitHub Actions runner
-    - name: Checkout
-      uses: actions/checkout@v4
+      # Checkout the repository
+      - name: Checkout
+        uses: actions/checkout@v4
 
-    # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v1
+      # Install Terraform CLI
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
 
-    # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
-    - name: Terraform Init
-      run: terraform init
+      # Initialize Terraform
+      - name: Terraform Init
+        run: terraform init
 
-    # Checks that all Terraform configuration files adhere to a canonical format
-    - name: Terraform Format
-      run: terraform fmt -check
+      # Check Terraform formatting
+      - name: Terraform Format
+        run: terraform fmt -check
 
-    # Generates an execution plan for Terraform
-    - name: Terraform Plan
-      run: terraform plan 
+      # Generate Terraform execution plan
+      - name: Terraform Plan
+        run: terraform plan
 
-      # On push to "main", build or change infrastructure according to Terraform configuration files
-      # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
-    - name: Terraform Apply      
-      run: terraform apply -auto-approve 
+      # Apply infrastructure changes
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
