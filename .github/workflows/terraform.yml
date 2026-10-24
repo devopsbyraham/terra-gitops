@@ -2,9 +2,31 @@ name: 'Terraform'
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "dev" ]
   pull_request:
+  workflow_dispatch: 
 
+  inputs:
+    username:
+      description: "Enter username"
+      required: true
+      type: string
+
+    environment:
+      description: "Select environment"
+      required: true
+      type: choice
+      options:
+        - dev
+        - staging
+        - production
+
+    deploy:
+      description: "Deploy?"
+      required: true
+      type: boolean
+
+      
 permissions:
   contents: read
 
