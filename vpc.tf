@@ -8,3 +8,7 @@ resource "aws_vpc" "name" {
     Name = "dev-vpc"
   }
 }
+
+resource "aws_s3_bucket" "demo" {
+  bucket = "gitops-terraform0099-buckrt"
+}
