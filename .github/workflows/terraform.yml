@@ -3,30 +3,8 @@ name: 'Terraform'
 
 on:
   push:
-    branches: ["dev"]
+    branches: ["main"]
 
-  pull_request:
-
-  workflow_dispatch:
-    inputs:
-      username:
-        description: "Enter username"
-        required: true
-        type: string
-
-      environment:
-        description: "Select environment"
-        required: true
-        type: choice
-        options:
-          - dev
-          - staging
-          - production
-
-      deploy:
-        description: "Deploy?"
-        required: true
-        type: boolean
 
 permissions:
   contents: read
@@ -39,7 +17,6 @@ jobs:
   terraform:
     name: 'Terraform'
     runs-on: ubuntu-latest
-    environment: production
 
     # Use Bash shell
     defaults:
