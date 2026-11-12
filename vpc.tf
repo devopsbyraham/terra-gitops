@@ -10,7 +10,7 @@ resource "aws_vpc" "name" {
 }
 
 resource "aws_s3_bucket" "demo" {
-  bucket = "gitops-terraform0099-demorgljbjtgirfy"
+  bucket = "gitops-terraform0099-demorgljbjtgirdefeffy"
 }
 
 
